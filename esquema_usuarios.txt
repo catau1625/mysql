@@ -1,0 +1,26 @@
+INSERT INTO usuarios(first_name, last_name, email, created_at, updated_at) 
+VALUES ('Catalina','Ubilla','cata@hotmail.com',NOW(),NOW()),
+('Italo','Santander','italo@hotmail.com',NOW(),NOW()),
+('Pia','Santander','pia@hotmail.com',NOW(),NOW());
+
+SELECT * FROM usuarios;
+
+SELECT CONCAT(usuarios.first_name, ' ',usuarios.last_name), usuarios.email
+FROM usuarios
+WHERE email = 'cata@hotmail.com';
+
+SELECT CONCAT(usuarios.first_name, ' ',usuarios.last_name)
+FROM usuarios
+ORDER BY usuarios.id DESC
+LIMIT 1; 
+
+UPDATE usuarios SET last_name = 'Panqueques' WHERE usuarios.id = 3;
+
+DELETE FROM usuarios WHERE usuarios.id = 2;
+
+SELECT * FROM usuarios
+ORDER BY usuarios.first_name;
+
+SELECT * FROM usuarios
+ORDER BY usuarios.first_name DESC;
+

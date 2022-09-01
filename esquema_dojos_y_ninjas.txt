@@ -1,0 +1,31 @@
+INSERT INTO dojos (name,created_at,updated_at) 
+VALUES ('Dojo 1',NOW(),NOW()),('Dojo 2',NOW(),NOW()),('Dojo 3',NOW(),NOW());
+
+DELETE FROM dojos;
+
+INSERT INTO dojos (name, created_at,updated_at)
+VALUES ('Dojo 4',NOW(),NOW()),('Dojo 5',NOW(),NOW()),('Dojo 6',NOW(),NOW());
+
+INSERT INTO ninjas (dojo_id,first_name,last_name,age,created_at,updated_at)
+VALUES (4,'Pablito','Pipeta',24,NOW(),NOW()),(4,'Cristina','Aguilera',45,NOW(),NOW()),
+(4,'Ximena','Santibañez',98,NOW(),NOW());
+
+INSERT INTO ninjas (dojo_id,first_name,last_name,age,created_at,updated_at)
+VALUES (5,'Javier','Arancibia',32,NOW(),NOW()),(5,'Alondra','Olivares',32,NOW(),NOW()),
+(5,'Chumingo','Cuprifero',76,NOW(),NOW());
+
+INSERT INTO ninjas (dojo_id,first_name,last_name,age,created_at,updated_at)
+VALUES (6,'Chingona','1',23,NOW(),NOW()),(6,'Chingona','2',12,NOW(),NOW()),
+(6,'Chimultrufia','La Original',46,NOW(),NOW());
+
+SELECT * FROM ninjas
+WHERE dojo_id = 4;
+
+SELECT * FROM ninjas
+WHERE dojo_id = 6;
+
+SELECT dojos.name, CONCAT(ninjas.first_name, ' ',ninjas.last_name) AS ninja_name
+FROM ninjas
+JOIN dojos ON ninjas.dojo_id = dojos.id
+ORDER BY ninjas.id DESC
+LIMIT 1;
