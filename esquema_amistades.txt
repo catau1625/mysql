@@ -1,0 +1,45 @@
+INSERT INTO usuarios (first_name,last_name) VALUES
+('Amy','Giver'),('Big','Bird'),('Eli','Byers'),('La Rana','René'),('Marky','Mark'),('Cata','Ubilla');
+
+INSERT INTO amistades (usuario1_id,usuario2_id) VALUES
+(1,2),(1,4),(1,6);
+
+INSERT INTO amistades (usuario1_id,usuario2_id) VALUES
+(2,1),(2,3),(2,5);
+
+INSERT INTO amistades (usuario1_id,usuario2_id) VALUES
+(3,2),(3,5);
+
+INSERT INTO amistades (usuario1_id,usuario2_id) VALUES
+(4,3);
+
+INSERT INTO amistades (usuario1_id,usuario2_id) VALUES
+(5,1),(5,6);
+
+INSERT INTO amistades (usuario1_id,usuario2_id) VALUES
+(6,2),(6,3);
+
+SELECT CONCAT(usuarios.first_name,' ',usuarios.last_name) AS usuario, CONCAT(usuarios2.first_name,' ',usuarios2.last_name) AS amigo
+FROM usuarios
+JOIN amistades ON usuarios.id = amistades.usuario1_id
+JOIN usuarios AS usuarios2 ON amistades.usuario2_id = usuarios2.id;
+
+SELECT CONCAT(usuarios2.first_name,' ',usuarios2.last_name) AS amigos_user1
+FROM usuarios
+JOIN amistades ON usuarios.id = amistades.usuario1_id
+JOIN usuarios AS usuarios2 ON amistades.usuario2_id = usuarios2.id
+WHERE amistades.usuario1_id = 1;
+
+SELECT COUNT(amistades.id) AS total_amistades
+FROM amistades;
+
+SELECT COUNT(amistades.usuario1_id) AS most_friends
+FROM amistades
+WHERE amistades.usuario1_id = 1;
+
+SELECT CONCAT(usuarios.first_name,' ',usuarios.last_name) AS friends_us3
+FROM usuarios
+JOIN amistades ON usuarios.id = amistades.usuario1_id
+JOIN usuarios AS usuarios2 ON amistades.usuario2_id = usuarios2.id
+WHERE usuarios2.id = 3
+ORDER BY friends_us3;

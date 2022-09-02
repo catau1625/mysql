@@ -1,0 +1,79 @@
+SELECT SUM(billing.amount) AS total_during_march2012
+FROM billing
+WHERE MONTH(billing.charged_datetime) = 3 AND YEAR(billing.charged_datetime) = 2012
+GROUP BY billing.charged_datetime AND billing.amount;
+
+SELECT clients.client_id AS id_cliente,SUM(billing.amount) AS total_revenue
+FROM clients
+JOIN billing ON clients.client_id = billing.client_id
+WHERE clients.client_id = 2
+GROUP BY clients.client_id;
+
+SELECT sites.domain_name AS website,clients.client_id AS client_id
+FROM sites
+JOIN clients ON sites.client_id = clients.client_id
+WHERE clients.client_id = 10;
+
+SELECT clients.client_id AS client_id,COUNT(sites.site_id) AS number_of_websites,MONTHNAME(sites.created_datetime) AS mes, YEAR(sites.created_datetime) AS año
+FROM clients
+JOIN sites ON clients.client_id = sites.client_id
+WHERE clients.client_id = 1
+GROUP BY sites.created_datetime;
+
+SELECT clients.client_id AS client_id,COUNT(sites.site_id) AS number_of_websites,MONTHNAME(sites.created_datetime) AS mes, YEAR(sites.created_datetime) AS año
+FROM clients
+JOIN sites ON clients.client_id = sites.client_id
+WHERE clients.client_id = 20
+GROUP BY sites.created_datetime;
+
+SELECT sites.domain_name AS website, COUNT(leads.leads_id) AS number_of_leads
+FROM sites
+JOIN leads ON sites.site_id = leads.site_id
+WHERE leads.registered_datetime BETWEEN '2011-01-01' AND '2011-02-15'
+GROUP BY leads.registered_datetime;
+
+SELECT CONCAT(clients.first_name,' ',clients.last_name) AS cliente,COUNT(leads.leads_id) AS total_leads
+FROM clients
+JOIN sites ON clients.client_id = sites.client_id
+JOIN leads ON sites.site_id = leads.site_id
+WHERE leads.registered_datetime BETWEEN '2011-01-01' AND '2011-12-31'
+GROUP BY clients.client_id;
+
+SELECT CONCAT(clients.first_name,' ',clients.last_name) AS cliente,COUNT(leads.leads_id) AS leads,MONTHNAME(leads.registered_datetime) AS mes
+FROM clients
+JOIN sites ON clients.client_id = sites.client_id
+JOIN leads ON sites.site_id = leads.site_id
+WHERE MONTH(leads.registered_datetime) < 7 AND YEAR(leads.registered_datetime) = 2011
+GROUP BY clients.client_id;
+
+SELECT CONCAT(clients.first_name,' ',clients.last_name) AS cliente,sites.domain_name AS website,COUNT(leads.leads_id) AS leads
+FROM clients
+JOIN sites ON clients.client_id = sites.client_id
+JOIN leads ON sites.site_id = leads.site_id
+WHERE leads.registered_datetime BETWEEN '2011-01-01' AND '2011-12-31'
+GROUP BY sites.domain_name
+ORDER BY clients.client_id;
+
+SELECT CONCAT(clients.first_name,' ',clients.last_name) AS cliente,sites.domain_name AS website,COUNT(leads.leads_id) AS leads
+FROM clients
+JOIN sites ON clients.client_id = sites.client_id
+JOIN leads ON sites.site_id = leads.site_id
+GROUP BY sites.domain_name
+ORDER BY clients.first_name;
+
+SELECT CONCAT(clients.first_name,' ',clients.last_name) AS cliente,SUM(billing.amount) AS total_revenue,MONTH(billing.charged_datetime) AS mes,YEAR(billing.charged_datetime) AS año
+FROM clients
+JOIN billing ON clients.client_id = billing.client_id
+GROUP BY MONTH(billing.charged_datetime)
+ORDER BY clients.client_id;
+
+SELECT CONCAT(clients.first_name,' ',clients.last_name) AS cliente,SUM(billing.amount) AS total_revenue,MONTHNAME(billing.charged_datetime) AS mes,YEAR(billing.charged_datetime) AS año
+FROM clients
+JOIN billing ON clients.client_id = billing.client_id
+GROUP BY MONTH(billing.charged_datetime)
+ORDER BY clients.client_id;
+
+SELECT CONCAT(clients.first_name,' ',clients.last_name) AS cliente, GROUP_CONCAT(sites.domain_name) AS sitios_web
+FROM clients
+JOIN sites ON clients.client_id = sites.client_id
+GROUP BY clients.client_id;
